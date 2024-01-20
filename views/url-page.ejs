@@ -5,6 +5,12 @@
     <title>Short Url</title>
 </head>
 <body>
-    
+    <% if (data){ %>
+        <h1><%= data.url %></h1>
+    <% } else { %>
+        <h1>Data is not defined</h1>
+    <% } %>
 </body>
+</html>
+
 </html>

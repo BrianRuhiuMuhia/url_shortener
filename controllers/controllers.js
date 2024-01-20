@@ -1,5 +1,6 @@
 const {db}=require("../db/db.js")
 const {checkUrl,shortenUrl}=require("../utils/utils.js")
+const data={}
 function home(req,res){
 return res.render("homePage")
 }
@@ -17,11 +18,12 @@ return shortenedUrl
 async function addUrlToDB(req,res)
 {
     const url=req.body.link
-    console.log(req.body)
     const shortUrl=shortenUserUrl(url)
 try{
+data["url"]=shortUrl
     await db.query("insert into url(url,url_short,clicks) values($1,$2,$3)",[url,shortUrl,0])
-    return res.redirect("http://localhost:5000/api/shorturlpage")
+    console.log(data)
+    return res.render("url-page.ejs",data)
 }
 catch(err)
 {
