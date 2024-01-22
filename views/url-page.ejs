@@ -6,9 +6,9 @@
 </head>
 <body>
     <% if (data){ %>
-        <h1><%= data.url %></h1>
+        <a href=<%= data.url %>><%= data.url %></a>
     <% } else { %>
-        <a>Data is not defined</a>
+        <h1>Data is not defined</h1>
     <% } %>
 </body>
 </html>

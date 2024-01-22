@@ -40,13 +40,13 @@ const url=req.query.url
 let searchedPage=undefined
 try{
 await db.query("select url from url where url_short=$1",[url],(err,result)=>{
-    if(result.rows)
+    const pageUrl=result.rows[0]["url"]
+    if(pageUrl)
     {
-        searchedPage=result.rows[0]["url"]
-        return res.redirect(searchedPage)
+        return res.redirect(pageUrl)
     }
     else{
-        return res.redirect("/home")
+        return res.render("homePage.ejs")
     }
 })
 }
