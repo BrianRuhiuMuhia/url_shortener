@@ -15,8 +15,7 @@ function shortenUrl(url)
 {
 const userUrl=new URL(url)
 const hostname=userUrl.hostname
-const server=`http://localhost:5000/api/search`
-const shortUrl=`${server}?${hostname}${generateRandomString(url)}.com`
+const shortUrl=`${hostname}${generateRandomString(url)}.com`
 return shortUrl
 }
 function generateRandomString(url)

@@ -1,13 +1,13 @@
 const {db}=require("../db/db.js")
 const {checkUrl,shortenUrl}=require("../utils/utils.js")
-const data={}
+const server=`http://localhost:5000/api/search?url=`
 function home(req,res){
 return res.render("homePage")
 }
 function shortenUserUrl(url)
 {
  const checkedUrl=checkUrl(url)
- console.log(checkedUrl)  
+ 
     if(url && checkedUrl)
     {
 const shortenedUrl=shortenUrl(url)
@@ -20,9 +20,10 @@ async function addUrlToDB(req,res)
     const url=req.body.link
     const shortUrl=shortenUserUrl(url)
 try{
-data["url"]=shortUrl
+const data={}
+data["url"]=`${server}${shortUrl}`
     await db.query("insert into url(url,url_short,clicks) values($1,$2,$3)",[url,shortUrl,0])
-    console.log(data)
+
     return res.render("url-page.ejs",{ data: data })
 }
 catch(err)
@@ -34,4 +35,26 @@ function shortUrlPage(req,res)
 {
     return res.render("url-page.ejs")
 }
-module.exports={home,addUrlToDB,shortUrlPage}
+async function getUrl(req,res){
+const url=req.query.url
+let searchedPage=undefined
+try{
+await db.query("select url from url where url_short=$1",[url],(err,result)=>{
+    if(result.rows)
+    {
+        searchedPage=result.rows[0]["url"]
+        return res.redirect(searchedPage)
+    }
+    else{
+        return res.redirect("/home")
+    }
+})
+}
+catch(err)
+{
+    console.log(err)
+}
+
+
+}
+module.exports={home,addUrlToDB,shortUrlPage,getUrl}
