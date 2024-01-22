@@ -1,6 +1,6 @@
 const {db}=require("../db/db.js")
 const {checkUrl,shortenUrl}=require("../utils/utils.js")
-const server=`http://localhost:5000/api/search?url=`
+const searchEndpoint=`http://localhost:5000/api/search?url=`
 let data={}
 function home(req,res){
 return res.render("homePage")
@@ -27,10 +27,10 @@ await db.query("select * from url where url=$1",[url],async (err,result)=>{
     if(result.rows.length<1)
     {
         await db.query("insert into url(url,url_short,clicks) values($1,$2,$3)",[url,shortUrl,0])
-        data["url"]=`${server}${shortUrl}`
+        data["url"]=`${searchEndpoint}${shortUrl}`
     }
     else{
-        data["url"]=`${server}${result.rows[0]["url_short"]}`
+        data["url"]=`${searchEndpoint}${result.rows[0]["url_short"]}`
     
     }
     return res.render("url-page.ejs",{ data: data })
