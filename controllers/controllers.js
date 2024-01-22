@@ -23,7 +23,7 @@ try{
 data["url"]=shortUrl
     await db.query("insert into url(url,url_short,clicks) values($1,$2,$3)",[url,shortUrl,0])
     console.log(data)
-    return res.render("url-page.ejs",data)
+    return res.render("url-page.ejs",{ data: data })
 }
 catch(err)
 {
