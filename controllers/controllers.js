@@ -16,24 +16,25 @@ return shortenedUrl
     }
     return new Error("problem shortenning url")
 }
-async function addUrlToDB(req,res)
+function addUrlToDB(req,res)
 {
     const url=req.body.link
     const shortUrl=shortenUserUrl(url)
 try{
 
-await db.query("select * from url where url=$1",[url],async (err,result)=>{
+db.query("select * from url where url=$1",[url],(err,result)=>{
     
     if(result.rows.length<1)
     {
-        await db.query("insert into url(url,url_short,clicks) values($1,$2,$3)",[url,shortUrl,0])
+        db.query("insert into url(url,url_short,clicks) values($1,$2,$3)",[url,shortUrl,0])
         data["url"]=`${searchEndpoint}${shortUrl}`
     }
     else{
         data["url"]=`${searchEndpoint}${result.rows[0]["url_short"]}`
     
     }
-    return res.render("url-page.ejs",{ data: data })
+
+    return res.status(200).render("url-page.ejs",{ data: data })
 })
 
    
