@@ -1,7 +1,10 @@
 const express=require("express")
 const router=express.Router()
-const {home, addUrlToDB,getUrl}=require("../controllers/controllers.js")
+const {home, addUrlToDB,getUrl,loginPage,registerPage,register}=require("../controllers/controllers.js")
 router.get("/home",home)
 router.post("/shorten",addUrlToDB)
 router.get("/search",getUrl)
+router.get("/login",loginPage)
+router.get("/register",registerPage)
+router.post("/register",register)
 module.exports=router

@@ -75,4 +75,14 @@ catch(err)
 
 
 }
-module.exports={home,addUrlToDB,getUrl}
+function loginPage(req,res){
+return res.render("login.ejs")
+}
+function registerPage(req,res){
+return res.render("register.ejs")
+}
+function register(req,res){
+console.log(req.body)
+return res.redirect("./login")
+}
+module.exports={home,addUrlToDB,getUrl,loginPage,registerPage,register}
