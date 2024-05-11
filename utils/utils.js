@@ -1,3 +1,4 @@
+const rNo=1000000
 function checkUrl(url)
 {
     let checkedUrl=undefined
@@ -28,4 +29,8 @@ function generateRandomString(url)
     }
     return randomStr
 }
-module.exports={shortenUrl,checkUrl}
+function generateRandomId()
+{
+    return Math.floor(Math.random() * rNo + 20)
+}
+module.exports={shortenUrl,checkUrl,generateRandomId}

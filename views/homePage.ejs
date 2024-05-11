@@ -10,6 +10,11 @@
         <label>paste URL</label>
         <input type="text" required class="link" name="link">
         <button>Submit</button>
+        <% if (data){ %>
+            <a href=<%= data.url %> target=_blank><%= data.url %></a>
+        <% } else { %>
+            <h1>Data is not defined</h1>
+        <% } %>
     </form>
 </body>
 </html>

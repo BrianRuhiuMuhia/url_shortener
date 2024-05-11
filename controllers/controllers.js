@@ -23,8 +23,12 @@ function addUrlToDB(req,res)
 try{
 
 db.query("select * from url where url=$1",[url],(err,result)=>{
-    
-    if(result.rows.length<1)
+    if(err)
+    {
+        console.log(err)
+     return res.json({"mssg":result})
+    }
+    if(result.rows===undefined || result.rows.length<1)
     {
         db.query("insert into url(url,url_short,clicks) values($1,$2,$3)",[url,shortUrl,0])
         data["url"]=`${searchEndpoint}${shortUrl}`
@@ -34,7 +38,7 @@ db.query("select * from url where url=$1",[url],(err,result)=>{
     
     }
 
-    return res.status(200).render("url-page.ejs",{ data: data })
+    return res.status(200).render("homePage.ejs",{ data: data })
 })
 
    
@@ -75,14 +79,7 @@ catch(err)
 
 
 }
-function loginPage(req,res){
-return res.render("login.ejs")
-}
-function registerPage(req,res){
-return res.render("register.ejs")
-}
-function register(req,res){
-console.log(req.body)
-return res.redirect("./login")
-}
-module.exports={home,addUrlToDB,getUrl,loginPage,registerPage,register}
+
+
+
+module.exports={home,addUrlToDB,getUrl}
