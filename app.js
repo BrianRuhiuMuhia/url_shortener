@@ -10,7 +10,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 app.use("/api/",router)
 app.all("*",(req,res)=>{
-    return res.render("404-page")
+    return res.render("home-page.ejs")
 })
 app.listen(process.env.PORT,()=>{
     console.log(`server running on port ${process.env.PORT}`)
