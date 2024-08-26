@@ -8,8 +8,13 @@
 body{
     /* background-image: url("../images/bg.avif"); */
     display:flex;
-    justify-content: center;
-    align-items: center;
+flex-direction: column;
+align-items: center;
+}
+.heading{
+    font-size: 2em;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color:lime;
 }
 .input{
     width:400px;
